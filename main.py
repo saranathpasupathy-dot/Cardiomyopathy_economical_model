@@ -128,7 +128,18 @@ fig.add_trace(go.Scatter(x=ages, y=income_curve, name="Total Career Earnings", f
 fig.add_trace(go.Scatter(x=ages, y=min_cost_curve, name="Best Case (Min Cost)", line=dict(color='#3498db', dash='dash')))
 fig.add_trace(go.Scatter(x=ages, y=active_path_curve, name="Active Pathway Cost", line=dict(color='#e74c3c', width=4)))
 
-fig.update_layout(title="Financial Sustainability Gap", xaxis_title="Age", yaxis_title="Rupees (₹)", hovermode="x unified", template="plotly_white")
+# Add this to your update_layout section to show Crores
+fig.update_layout(
+    title="Financial Sustainability Gap",
+    xaxis_title="Age",
+    yaxis_title="Rupees (in Crores)",
+    yaxis=dict(
+        tickvals=[i * 10000000 for i in range(0, 51, 5)], # Intervals of 5 Crores
+        ticktext=[f"{i} Cr" for i in range(0, 51, 5)]     # Labels it as 'Cr'
+    ),
+    hovermode="x unified",
+    template="plotly_white"
+)
 st.plotly_chart(fig, use_container_width=True)
 
 # --- FINAL INSIGHTS ---
@@ -143,3 +154,4 @@ if peak_deficit > 0:
     st.error(f"🛡️ **Peak Deficit Detected:** At your highest point of financial stress, you are short by ₹{int(peak_deficit):,}. This is the recommended **Insurance Cover** to stay solvent.")
 else:
     st.success("✅ **Self-Sustaining:** Your projected earnings are sufficient for this pathway.")
+
