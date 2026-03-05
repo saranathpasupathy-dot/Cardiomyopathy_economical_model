@@ -122,6 +122,43 @@ for age in ages:
     if current_gap > peak_deficit:
         peak_deficit = current_gap
 
+
+# --- R-VALUE CALCULATION ---
+st.divider()
+st.subheader("📊 Economic Sustainability Analysis (R-Value)")
+
+# Calculate the final ratio
+if cum_income > 0:
+    r_value = cum_active / cum_income
+else:
+    r_value = 0
+
+# Display the R-Value Metric
+col_r1, col_r2 = st.columns([1, 2])
+with col_r1:
+    st.metric("Cost-to-Income Ratio (R)", f"{r_value:.2f}")
+
+with col_r2:
+    if r_value > 0.4:
+        st.error(f"⚠️ **R = {r_value:.2f}: Catastrophic Medical Expense Detected**")
+        st.write(
+            "An R-value > 0.4 indicates that medical costs exceed 40% of your total lifetime earnings. "
+            "In economic terms, this is considered 'catastrophic' and usually leads to total asset depletion."
+        )
+    elif r_value > 0.1:
+        st.warning(f"⚠️ **R = {r_value:.2f}: Significant Financial Strain**")
+        st.write("Your medical costs are a substantial portion of your income. Heavy insurance is advised.")
+    else:
+        st.success(f"✅ **R = {r_value:.2f}: Financially Manageable**")
+        st.write("Your medical expenses are within a sustainable range relative to your earnings.")
+
+# Disclaimer Text Box
+st.info(
+    "💡 **Note on R-Value:** The R-value is the ratio of Total Medical Cost to Cumulative Income. "
+    "Expert consensus in health economics defines any medical expense where **R > 0.4** as a "
+    "catastrophic expenditure that often requires the sale of assets or high-interest debt."
+)
+
 # --- VISUALIZATION ---
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=ages, y=income_curve, name="Total Career Earnings", fill='tozeroy', line=dict(color='#2ecc71', width=3)))
@@ -164,3 +201,4 @@ st.write(
     """,
     unsafe_allow_html=True
 )
+
