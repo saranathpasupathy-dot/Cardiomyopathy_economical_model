@@ -156,12 +156,15 @@ else:
     st.success("✅ **Self-Sustaining:** Your projected earnings are sufficient for this pathway.")
 
 
-# --- SITE VISITOR COUNTER ---
 st.markdown("---")
 st.markdown("### 📊 Project Traffic")
 
-# URL-Encoded link for your specific GitHub repository
-encoded_url = "https%3A%2F%2Fgithub.com%2Fsaranathpasupathy-dot%2FCardiomyopathy_economical_model"
-
-# Full badge markdown
-st.markdown(f"![Visitor Count](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url={encoded_url}&count_bg=%23e74c3c&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Total+Visits&edge_flat=false)")
+# We use HTML here to ensure the browser loads it correctly
+st.write(
+    f"""
+    <div style="display: flex; justify-content: left;">
+        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fshare.streamlit.io%2Fsaranathpasupathy-dot%2Fcardiomyopathy_economical_model%2Fmain%2Fmain.py&count_bg=%23e74c3c&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Total+Visits&edge_flat=false" alt="Visitor Count">
+    </div>
+    """,
+    unsafe_allow_html=True
+)
